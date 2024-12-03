@@ -18,8 +18,15 @@ export const dividendos = async () => {
   return data;
 };
 
-export const compra = async () => {
-  const { data } = await api.post("/compra");
+export const compra = async (body) => {
+  const { data } = await api.post("/compra", body);
+  console.log(data);
+
+  return data;
+}
+
+export const venda = async (body) => {
+  const { data } = await api.post("/venda", body);
   console.log(data);
 
   return data;
