@@ -52,9 +52,8 @@ const Register = () => {
 
     try {
       const payload = {
-        username: username,
         email: email,
-        userPassword: userPassword,
+        password: userPassword,
       };
       const data = await register(payload);
 

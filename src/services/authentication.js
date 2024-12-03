@@ -8,10 +8,10 @@ export const login = async (dados) => {
   try {
     const { data } = await api.post("/auth/login", dados);
 
-    if (data?.username && data?.email && data?.token) {
-      localStorage.setItem("username", data.username);
-      localStorage.setItem("email", data.email);
-      localStorage.setItem("token", data.token);
+    if (data?.accessToken) {
+      localStorage.setItem("email", dados.email);
+      localStorage.setItem("token", data.tokenType);
+      localStorage.setItem("accessToken", data.accessToken);
 
       return true;
     }

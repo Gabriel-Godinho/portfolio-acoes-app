@@ -40,7 +40,7 @@ const Login = () => {
     try {
       const userCredentials = {
         email: email,
-        userPassword: userPassword,
+        password: userPassword,
       };
       const loginSuccessful = await login(userCredentials);
       console.log(loginSuccessful);
