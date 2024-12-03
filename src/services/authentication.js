@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_LOGIN + "/api/1.0/users",
+  baseURL: process.env.REACT_APP_API_LOGIN,
 });
 
 export const login = async (dados) => {

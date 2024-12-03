@@ -19,9 +19,8 @@ const defaultTheme = createTheme();
 const Register = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({
-    username: false,
     email: false,
-    userPassword: false,
+    password: false,
     confirmPassword: false,
     passwordMismatch: false,
   });
@@ -30,17 +29,15 @@ const Register = () => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    const username = formData.get("username");
     const email = formData.get("email");
-    const userPassword = formData.get("userPassword");
+    const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword");
 
     const newErrors = {
-      username: !username,
       email: !email,
-      userPassword: !userPassword,
+      password: !password,
       confirmPassword: !confirmPassword,
-      passwordMismatch: userPassword !== confirmPassword,
+      passwordMismatch: password !== confirmPassword,
     };
 
     setErrors(newErrors);
@@ -53,7 +50,7 @@ const Register = () => {
     try {
       const payload = {
         email: email,
-        password: userPassword,
+        password: password,
       };
       const data = await register(payload);
 
@@ -85,7 +82,7 @@ const Register = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Cadastre-se
           </Typography>
           <Box
             component="form"
@@ -94,19 +91,6 @@ const Register = () => {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  autoComplete="given-name"
-                  name="username"
-                  required
-                  fullWidth
-                  id="username"
-                  label="Nome de usuário"
-                  autoFocus
-                  error={errors.username}
-                  helperText={errors.username ? "Campo obrigatório" : ""}
-                />
-              </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
@@ -123,13 +107,13 @@ const Register = () => {
                 <TextField
                   required
                   fullWidth
-                  name="userPassword"
+                  name="password"
                   label="Senha"
                   type="password"
-                  id="userPassword"
+                  id="password"
                   autoComplete="new-password"
-                  error={errors.userPassword || errors.passwordMismatch}
-                  helperText={errors.userPassword ? "Campo obrigatório" : ""}
+                  error={errors.password || errors.passwordMismatch}
+                  helperText={errors.password ? "Campo obrigatório" : ""}
                 />
               </Grid>
               <Grid item xs={12}>

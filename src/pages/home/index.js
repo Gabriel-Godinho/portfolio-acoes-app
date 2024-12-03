@@ -2,8 +2,6 @@ import Sidebar from "../../components/Sidebar";
 import { Container, Box, Typography } from "@mui/material";
 
 const Home = () => {
-  const username = localStorage.getItem("username");
-
   return (
     <Box sx={{ display: "flex" }}>
       <Sidebar />
@@ -29,8 +27,7 @@ const Home = () => {
             variant="h3"
             sx={{ display: "flex", alignItems: "center", gap: 1 }}
           >
-            Bem-vindo(a),{" "}
-            <span style={{ fontWeight: "bold" }}>{username}!</span> 😃
+            Bem-vindo(a)
           </Typography>
         </Box>
       </Container>

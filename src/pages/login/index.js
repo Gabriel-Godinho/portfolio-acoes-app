@@ -17,22 +17,22 @@ const defaultTheme = createTheme();
 
 const Login = () => {
   const navigate = useNavigate();
-  const [errors, setErrors] = useState({ email: false, userPassword: false });
+  const [errors, setErrors] = useState({ email: false, password: false });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
     const email = formData.get("email");
-    const userPassword = formData.get("userPassword");
+    const password = formData.get("password");
     const newErrors = {
       email: !email,
-      userPassword: !userPassword,
+      password: !password,
     };
 
     setErrors(newErrors);
 
-    if (!email || !userPassword) {
+    if (!email || !password) {
       // Se os campos não forem preenchidos, não prossegue
       return;
     }
@@ -40,9 +40,11 @@ const Login = () => {
     try {
       const userCredentials = {
         email: email,
-        password: userPassword,
+        password: password,
       };
+
       const loginSuccessful = await login(userCredentials);
+      
       console.log(loginSuccessful);
 
       if (loginSuccessful) navigate("/home");
@@ -91,13 +93,13 @@ const Login = () => {
               margin="normal"
               required
               fullWidth
-              name="userPassword"
+              name="password"
               label="Senha"
               type="password"
-              id="userPassword"
+              id="password"
               autoComplete="current-password"
-              error={errors.userPassword}
-              helperText={errors.userPassword ? "Campo obrigatório" : ""}
+              error={errors.password}
+              helperText={errors.password ? "Campo obrigatório" : ""}
             />
             <Button
               type="submit"
