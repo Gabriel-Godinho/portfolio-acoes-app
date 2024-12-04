@@ -1,4 +1,6 @@
 import Sidebar from "../../components/Sidebar";
+import DividendTable from "../../components/DividendTable"
+import TransactionHistoryTable from "../../components/TransactionHistoryTable"
 import { Container, Box, Typography } from "@mui/material";
 
 const Home = () => {
@@ -29,6 +31,12 @@ const Home = () => {
           >
             Bem-vindo(a)
           </Typography>
+        </Box>
+        <Box>
+          <DividendTable />
+        </Box>
+        <Box>
+          <TransactionHistoryTable />
         </Box>
       </Container>
     </Box>
