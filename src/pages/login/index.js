@@ -25,6 +25,7 @@ const Login = () => {
     const formData = new FormData(event.currentTarget);
     const email = formData.get("email");
     const password = formData.get("password");
+
     const newErrors = {
       email: !email,
       password: !password,
@@ -32,24 +33,17 @@ const Login = () => {
 
     setErrors(newErrors);
 
-    if (!email || !password) {
-      // Se os campos não forem preenchidos, não prossegue
+    if (Object.values(newErrors).some((error) => error)) {
       return;
     }
 
     try {
-      const userCredentials = {
-        email: email,
-        password: password,
-      };
-
+      const userCredentials = { email, password };
       const loginSuccessful = await login(userCredentials);
-      
-      console.log(loginSuccessful);
 
       if (loginSuccessful) navigate("/home");
     } catch (error) {
-      alert("Erro");
+      // Erros já tratados pelo serviço
     }
   };
 
@@ -71,12 +65,7 @@ const Login = () => {
           <Typography component="h1" variant="h5">
             Login
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -101,28 +90,13 @@ const Login = () => {
               error={errors.password}
               helperText={errors.password ? "Campo obrigatório" : ""}
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Login
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+              Entrar
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Esqueceu a senha?
-                </Link>
-              </Grid>
               <Grid item>
-                <NavLink
-                  to="/register"
-                  style={{
-                    fontSize: 13.5,
-                  }}
-                >
-                  {"Não tem uma conta? Crie uma"}
+                <NavLink to="/register" style={{ fontSize: 14 }}>
+                  {"Não tem uma conta? Cadastre-se!"}
                 </NavLink>
               </Grid>
             </Grid>

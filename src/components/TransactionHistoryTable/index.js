@@ -12,7 +12,6 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import { acoes } from "../../services/acao";
 
 const defaultTheme = createTheme();
 
@@ -21,32 +20,21 @@ const TransactionHistoryTable = () => {
 
   useEffect(() => {
     const fetchTransactions = async () => {
-      const transactions = [
-        {
-          ticker: "AAPL",
-          date: "2024-12-01",
-          type: "Compra",
-          quantity: 10,
-          pricePerShare: 150.75,
-        },
-        {
-          ticker: "MSFT",
-          date: "2024-11-20",
-          type: "Venda",
-          quantity: 5,
-          pricePerShare: 310.5,
-        },
-      ];
+      try {
+        // Requisição para o endpoint correto
+        const response = await fetch("http://localhost:5071/api/Acao/transacoes");
+        const data = await response.json();
+        debugger
 
-      const backTransactions = await acoes();
-
-      transactions.push(backTransactions);
-
-      setTransactionData(transactions);
+        // Definir os dados das transações
+        setTransactionData(data);
+      } catch (error) {
+        console.error("Erro ao buscar dados de transações:", error);
+      }
     };
 
     fetchTransactions();
-  }, []);
+  }, []); // Empty dependency array significa que a requisição será feita apenas uma vez após o carregamento do componente
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -77,10 +65,14 @@ const TransactionHistoryTable = () => {
                 transactionData.map((row, index) => (
                   <TableRow key={index}>
                     <TableCell>{row.ticker}</TableCell>
-                    <TableCell>{row.date}</TableCell>
-                    <TableCell>{row.type}</TableCell>
-                    <TableCell>{row.quantity}</TableCell>
-                    <TableCell>{`R$ ${row.pricePerShare.toFixed(2)}`}</TableCell>
+                    <TableCell>{row.data}</TableCell>
+                    <TableCell>{row.tipoTransacaoId == 1 ? "Compra" : "Venda"}</TableCell>
+                    <TableCell>{row.quantidade}</TableCell>
+                    <TableCell>
+                      {typeof row.precoPorAcao === 'number' && !isNaN(row.precoPorAcao)
+                        ? `R$ ${row.precoPorAcao.toFixed(2)}`
+                        : 'N/A'}
+                    </TableCell>
                   </TableRow>
                 ))
               ) : (

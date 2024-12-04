@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { login, register } from "../../services/authentication";
+import { register } from "../../services/authentication";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -48,21 +48,11 @@ const Register = () => {
     }
 
     try {
-      const payload = {
-        email: email,
-        password: password,
-      };
-      const data = await register(payload);
-
-      console.log(data);
-
-      if (data) {
-        const loginSuccess = await login(payload);
-
-        if (loginSuccess) navigate("/home");
-      }
+      const payload = { email, password };
+      await register(payload); // Registra o usuário
+      navigate("/login"); // Redireciona para o login
     } catch (error) {
-      alert("Erro ao criar nova conta");
+      // Erros de registro já serão tratados pelo `toast.error` no serviço
     }
   };
 
@@ -84,12 +74,7 @@ const Register = () => {
           <Typography component="h1" variant="h5">
             Cadastre-se
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -137,29 +122,17 @@ const Register = () => {
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
+                  control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="Desejo receber atualizações via e-mail."
                 />
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Criar conta
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <NavLink
-                  to="/login"
-                  style={{
-                    fontSize: 14,
-                  }}
-                >
+                <NavLink to="/login" style={{ fontSize: 14 }}>
                   Já tem uma conta? Faça login!
                 </NavLink>
               </Grid>

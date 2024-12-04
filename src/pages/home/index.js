@@ -2,6 +2,7 @@ import Sidebar from "../../components/Sidebar";
 import DividendTable from "../../components/DividendTable"
 import TransactionHistoryTable from "../../components/TransactionHistoryTable"
 import { Container, Box, Typography } from "@mui/material";
+import AcaoTable from "../../components/AcaoTable";
 
 const Home = () => {
   return (
@@ -33,7 +34,7 @@ const Home = () => {
           </Typography>
         </Box>
         <Box>
-          <DividendTable />
+          <AcaoTable />
         </Box>
         <Box>
           <TransactionHistoryTable />

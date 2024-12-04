@@ -21,30 +21,19 @@ const DividendTable = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const dividends = [
-        {
-          ticker: "AAPL",
-          date: "2024-12-01",
-          dividendValue: 1.22,
-          valuePerShare: 0.25,
-        },
-        {
-          ticker: "MSFT",
-          date: "2024-11-20",
-          dividendValue: 3.15,
-          valuePerShare: 0.50,
-        },
-      ];
-
-      const backDividends = await dividendos();
-
-      dividends.push(backDividends);
-
-      setDividendData(dividends);
+      try {
+        // Fetching data from your API
+        const response = await fetch("http://localhost:5071/api/Acao/dividendos");
+        const data = await response.json(); // Assuming the response is a JSON array
+        setDividendData(data); // Set the dividend data from the API
+      } catch (error) {
+        console.error("Error fetching dividend data:", error);
+      }
     };
 
     fetchData();
-  }, []);
+  }, []); // Empty dependency array means this effect runs once when the component mounts
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -75,8 +64,16 @@ const DividendTable = () => {
                   <TableRow key={index}>
                     <TableCell>{row.ticker}</TableCell>
                     <TableCell>{row.date}</TableCell>
-                    <TableCell>{`R$ ${row.dividendValue.toFixed(2)}`}</TableCell>
-                    <TableCell>{`R$ ${row.valuePerShare.toFixed(2)}`}</TableCell>
+                    <TableCell>
+                      {typeof row.dividendValue === 'number' && !isNaN(row.dividendValue)
+                        ? `R$ ${row.dividendValue.toFixed(2)}`
+                        : 'N/A'}
+                    </TableCell>
+                    <TableCell>
+                      {typeof row.valuePerShare === 'number' && !isNaN(row.valuePerShare)
+                        ? `R$ ${row.valuePerShare.toFixed(2)}`
+                        : 'N/A'}
+                    </TableCell>
                   </TableRow>
                 ))
               ) : (
