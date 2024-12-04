@@ -11,11 +11,13 @@ import {
   Button,
   MenuItem,
 } from "@mui/material";
+import Sidebar from "../../components/Sidebar";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { compra, venda } from "../../services/acao"
 
 const defaultTheme = createTheme();
 
-function StockForm() {
+const StockForm = () => {
   const [formData, setFormData] = useState({
     ticker: "",
     quantity: "",
@@ -29,33 +31,48 @@ function StockForm() {
     price: false,
   });
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
+
     const newErrors = {
       ticker: !formData.ticker,
       quantity: !formData.quantity || isNaN(formData.quantity),
       price: !formData.price || isNaN(formData.price),
     };
+
     setErrors(newErrors);
 
     const hasErrors = Object.values(newErrors).some((error) => error);
+
     if (!hasErrors) {
-      console.log("Form data submitted:", formData);
+      const actionType = formData.type;
+      const body = {
+        ticker: formData.ticker,
+        quantidade: formData.quantity,
+        precoPorAcao: formData.price
+      }
+
+      if (actionType === "Compra") {
+        await compra(body);
+      } else if (actionType === "Venda") {
+        await venda(body);
+      }
     }
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      <Sidebar />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 10,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
