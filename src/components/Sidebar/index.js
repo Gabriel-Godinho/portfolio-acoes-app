@@ -20,8 +20,9 @@ import {
   Menu as MenuIcon,
   Home as HomeIcon,
   AccountCircle as AccountCircleIcon,
-  Logout as LogoutIcon,
+  Logout as LogoutIcon
 } from "@mui/icons-material";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
@@ -48,14 +49,26 @@ const Sidebar = () => {
       <Toolbar />
       <Divider />
       <List>
-        {["Home", "Perfil"].map((text, index) => (
+        {["Home", "Perfil", "Registro de Ações"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton
               component={Link}
-              to={index % 2 === 0 ? "/home" : "/profile"}
+              to={
+                index === 0
+                  ? "/home"
+                  : index === 1
+                  ? "/profile"
+                  : "/compravenda"
+              }
             >
               <ListItemIcon>
-                {index % 2 === 0 ? <HomeIcon /> : <AccountCircleIcon />}
+                {index === 0 ? (
+                  <HomeIcon />
+                ) : index === 1 ? (
+                  <AccountCircleIcon />
+                ) : (
+                  <AttachMoneyIcon />
+                )}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
