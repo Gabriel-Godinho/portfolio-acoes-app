@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { logout } from "../../services/authentication";
 import {
   AppBar,
   Box,
@@ -26,6 +25,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../../services/authentication";
 
 const drawerWidth = 240;
 
