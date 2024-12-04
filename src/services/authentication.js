@@ -34,14 +34,7 @@ export const authenticatedUser = () => {
 };
 
 export const logout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("username");
   localStorage.removeItem("email");
-};
-
-export const getAllUsers = async () => {
-  const { data } = await api.get("/all");
-  console.log(data);
-
-  return data;
+  localStorage.removeItem("token");
+  localStorage.removeItem("accessToken")
 };
