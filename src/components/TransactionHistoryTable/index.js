@@ -12,16 +12,16 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import { acoes } from "../../services/acao";
 
 const defaultTheme = createTheme();
 
 function TransactionHistoryTable() {
   const [transactionData, setTransactionData] = useState([]);
 
-  // Simulação de chamada ao back-end
   useEffect(() => {
     const fetchTransactions = async () => {
-      const simulatedTransactions = [
+      const transactions = [
         {
           ticker: "AAPL",
           date: "2024-12-01",
@@ -37,7 +37,12 @@ function TransactionHistoryTable() {
           pricePerShare: 310.5,
         },
       ];
-      setTransactionData(simulatedTransactions);
+
+      const backTransactions = await acoes();
+
+      transactions.push(backTransactions);
+
+      setTransactionData(transactions);
     };
 
     fetchTransactions();

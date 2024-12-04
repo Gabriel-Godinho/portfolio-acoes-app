@@ -12,17 +12,16 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import { dividendos } from "../../services/acao";
 
 const defaultTheme = createTheme();
 
 function DividendTable() {
   const [dividendData, setDividendData] = useState([]);
 
-  // Simulação de chamada ao back-end
   useEffect(() => {
-    // Substitua por uma chamada real ao seu back-end
     const fetchData = async () => {
-      const simulatedData = [
+      const dividends = [
         {
           ticker: "AAPL",
           date: "2024-12-01",
@@ -36,7 +35,12 @@ function DividendTable() {
           valuePerShare: 0.50,
         },
       ];
-      setDividendData(simulatedData);
+
+      const backDividends = await dividendos();
+
+      dividends.push(backDividends);
+
+      setDividendData(dividends);
     };
 
     fetchData();
