@@ -16,7 +16,7 @@ import { acoes } from "../../services/acao";
 
 const defaultTheme = createTheme();
 
-function TransactionHistoryTable() {
+const TransactionHistoryTable = () => {
   const [transactionData, setTransactionData] = useState([]);
 
   useEffect(() => {

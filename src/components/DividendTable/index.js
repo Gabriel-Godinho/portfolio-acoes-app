@@ -16,7 +16,7 @@ import { dividendos } from "../../services/acao";
 
 const defaultTheme = createTheme();
 
-function DividendTable() {
+const DividendTable = () => {
   const [dividendData, setDividendData] = useState([]);
 
   useEffect(() => {
